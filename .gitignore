@@ -1,0 +1,5 @@
+.env_web
+.env_wordpress
+.env_mariadb
+bw-data/
+db-data/

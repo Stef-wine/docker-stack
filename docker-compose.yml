@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  web:
+    image: bunkerity/bunkerweb:1.4.8
+    ports:
+      - 80:8080
+      - 443:8443
+    volumes:
+      - ./bw-data:/data
+    env_file:
+      - .env_web
+
+  wordpress:
+    image: wordpress:fpm
+    volumes:
+      - ./bw-data/www:/var/www/html
+    env_file:
+      - .env_wordpress
+  
+  mariadb:
+    image: mariadb
+    volumes:
+      - ./db-data:/var/lib/mysql
+    env_file:
+      - .env_mariadb
