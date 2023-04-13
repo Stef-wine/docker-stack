@@ -11,6 +11,16 @@ services:
       - ./bw-data:/data
     env_file:
       - .env_web
+    environment:
+      - |
+        CUSTOM_CONF_MODSEC_CRS_wordpress=
+        SecAction \
+         "id:900130,\
+          phase:1,\
+          nolog,\
+          pass,\
+          t:none,\
+          setvar:tx.crs_exclusions_wordpress=1"
 
   wordpress:
     image: wordpress:fpm
