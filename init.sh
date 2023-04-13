@@ -4,8 +4,10 @@ set -e
 
 sudo -v
 
+DIRNAME="$(dirname $(readlink -f $0))"
+
 function create {
-    DIR="$(dirname $(readlink -f $0))/$1"
+    DIR="$DIRNAME/$1"
 
     if [ -d "$DIR" ];
     then
@@ -21,3 +23,15 @@ function create {
 create bw-data $UID 101
 create bw-data/www $UID 33
 create db-data $UID $GID
+
+for COPY_ENV in wordpress mariadb web
+do
+    FILE_ENV=$DIRNAME/.env_${COPY_ENV}
+    if [ -f "$FILE_ENV" ];
+    then
+        echo "$FILE_ENV file exists."
+    else
+        echo "$FILE_ENV file does not exist. Create..."
+        cp ${FILE_ENV}.dist $DIRNAME/.env_${COPY_ENV}
+    fi
+done
