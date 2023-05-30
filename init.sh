@@ -14,17 +14,23 @@ function create {
         echo "$DIR directory exists."
     else
         echo "$DIR directory does not exist. Create..."
-        mkdir -p $DIR \
-            && sudo chown "$2:$3" $DIR \
+
+        mkdir -p $DIR
+
+        if  [[ -n $2 ]];
+        then
+            sudo chown "$2" $DIR \
             && sudo chmod 770 $DIR
+        fi
     fi
 }
 
-create bw-data $UID 101
-create bw-data/www $UID 33
-create db-data $UID $GID
+create bw-data "101:101"
+create db-data
+create odoo/data "101:101"
+create odoo/addons "101:101"
 
-for COPY_ENV in wordpress mariadb web
+for COPY_ENV in odoo postgres web
 do
     FILE_ENV=$DIRNAME/.env_${COPY_ENV}
     if [ -f "$FILE_ENV" ];

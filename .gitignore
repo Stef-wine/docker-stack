@@ -1,5 +1,6 @@
 .env_web
-.env_wordpress
-.env_mariadb
+.env_odoo
+.env_postgres
 bw-data/
 db-data/
+odoo/

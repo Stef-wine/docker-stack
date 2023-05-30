@@ -11,27 +11,21 @@ services:
       - ./bw-data:/data
     env_file:
       - .env_web
-    environment:
-      - |
-        CUSTOM_CONF_MODSEC_CRS_wordpress=
-        SecAction \
-         "id:900130,\
-          phase:1,\
-          nolog,\
-          pass,\
-          t:none,\
-          setvar:tx.crs_exclusions_wordpress=1"
 
-  wordpress:
-    image: wordpress:fpm
+  odoo:
+    image: odoo:16.0
+    depends_on:
+      - postgres
+      - web
     volumes:
-      - ./bw-data/www:/var/www/html
+      - ./odoo/data:/var/lib/odoo
+      - ./odoo/addons:/mnt/extra-addons
     env_file:
-      - .env_wordpress
+      - .env_odoo
   
-  mariadb:
-    image: mariadb
+  postgres:
+    image: postgres:15
     volumes:
-      - ./db-data:/var/lib/mysql
+      - ./db-data:/var/lib/postgresql/data/pgdata
     env_file:
-      - .env_mariadb
+      - .env_postgres
