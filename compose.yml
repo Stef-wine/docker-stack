@@ -47,6 +47,7 @@ services:
     volumes:
       - ./odoo/data:/var/lib/odoo
       - ./odoo/addons:/mnt/extra-addons
+      - ./docker/odoo/odoo.conf:/etc/odoo/odoo.conf
     env_file:
       - .env_odoo
     networks:
