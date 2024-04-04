@@ -1,6 +1,6 @@
 .env_web
 .env_odoo
 .env_postgres
-bw-data/
-db-data/
-odoo/
+/bw-data
+/db-data
+/odoo
